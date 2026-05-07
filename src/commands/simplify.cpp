@@ -35,6 +35,7 @@ void simplify_graph(PositionedGraph& graph) {
     std::cout << "Graph has " << graph.nodes.size() << " nodes after simplification [two degree nodes removal]." << std::endl;
 }
 
+
 void replace_node_by_arc(PositionedGraph& graph, OSM::NodeId const id) {
     // for each pair of neighbors, add new edge between them
     auto const& neighbors { graph.graph.get_neighbors(id) };
