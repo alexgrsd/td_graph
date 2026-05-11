@@ -60,6 +60,8 @@ std::unordered_map<IDType, std::pair<float, IDType>> Dijkstra(WeightedGraph cons
 
     while (!to_visit.empty())
     {
+        // current cost est le coût pour atteindre le noeud courant depuis le noeud de départ
+        // current node est l'id du noeud courant
         auto [current_cost, current_node] = to_visit.top();
         to_visit.pop();
 
@@ -73,12 +75,16 @@ std::unordered_map<IDType, std::pair<float, IDType>> Dijkstra(WeightedGraph cons
             break;
         }
 
+        // on explore les voisins du noeud courant
         for (auto const &edge : graph.get_neighbors(current_node))
         {
+            // on calcule le coût pour atteindre le voisin depuis le noeud de départ en passant par le noeud courant
             float new_cost = current_cost + edge.weight;
             
+            // si le voisin n'a pas encore été visité ou si le nouveau coût est inférieur au coût précédemment enregistré pour ce voisin
             if (!distances.contains(edge.to) || new_cost < distances[edge.to].first)
             {
+                // on met a jour le cout et on enregistre le noeud courrant 
                 distances[edge.to] = {new_cost, current_node};
                 to_visit.push({new_cost, edge.to});
             }
